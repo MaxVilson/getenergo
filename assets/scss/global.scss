@@ -1,0 +1,376 @@
+body {
+    min-height: 100vh;
+}
+
+input {
+    outline: none !important;
+}
+
+button {
+    outline: none !important;
+}
+
+#__nuxt,
+#__layout {
+    min-height: 100vh;
+}
+
+.site {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content-wrapper {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.content-main {
+    margin-left: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 40px;
+    flex: 1 1 100%;
+    transition: padding-left .3s;
+
+    @media (min-width: 1920px) {
+        padding-left: 120px;
+        padding-right: 120px;
+    }
+
+    &__without-sidebar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+    }
+}
+
+.category {
+
+    &__form {
+        display: flex;
+        justify-content: center;
+
+        &-wrapper {
+            width: 500px;
+        }
+    }
+
+    &__control {
+        margin-bottom: 20px;
+    }
+
+    &__btn-create {
+        margin-top: 28px;
+    }
+}
+
+// Компонент выпадающих категорий с табами
+.category-tabs-list {
+
+    &__wrapper {
+        display: flex;
+    }
+
+    &__sidebar {
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+        width: 300px;
+
+        &-item {
+            position: relative;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+            &_active {
+                border-color: #D1E7F8;
+                border-right: 2px solid #1889DB;
+                background: linear-gradient(0deg, rgba(24, 137, 219, 0.1), rgba(24, 137, 219, 0.1)),
+                #FFFFFF;
+                color: $primary;
+            }
+
+            & .icon {
+                position: absolute;
+                top: 50%;
+                left: 13px;
+                transform: translateY(-50%);
+                fill: $color-text-dark;
+            }
+
+            &:first-child {
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            &:hover {
+                border-color: #D1E7F8;
+                border-right: 2px solid #1889DB;
+                background: linear-gradient(0deg, rgba(24, 137, 219, 0.1), rgba(24, 137, 219, 0.1)), #FFFFFF;
+                color: $primary;
+            }
+        }
+
+        &-link {
+            display: inline-block;
+            width: 100%;
+            padding-top: 12px;
+            padding-right: 8px;
+            padding-bottom: 12px;
+            padding-left: 36px;
+            font-size: (15 / 16 + rem);
+            line-height: (32 / 16 + rem);
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+    }
+
+    &__content {
+        padding: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+
+        &-list {
+            margin-bottom: 0;
+            padding-left: 0;
+            list-style: none;
+
+            &-wrapper {
+                min-width: 640px;
+                column-count: 2;
+            }
+
+            &-item {
+                padding: 5px;
+                break-inside: avoid;
+                margin-bottom: 20px;
+                font-size: (14 / 16 + rem);
+                cursor: pointer;
+
+                &_active {
+                    background: linear-gradient(0deg, rgba(24, 137, 219, 0.1), rgba(24, 137, 219, 0.1)), #FFFFFF;
+                    transition: background .15s;
+
+                    & .category-tabs-list__content-sublist {
+                        color: #9CA2A7;
+                    }
+                }
+
+                &-title {
+                    font-weight: 700;
+
+                    & .icon {
+                        margin-right: 3px;
+                    }
+                }
+            }
+        }
+
+        &-sublist {
+            margin-top: 10px;
+            margin-bottom: 0;
+            padding-left: 0;
+            list-style: none;
+
+            &-item {
+                margin-bottom: 4px;
+                padding-left: 4px;
+
+                &:hover {
+                    background: linear-gradient(0deg, rgba(24, 137, 219, 0.1), rgba(24, 137, 219, 0.1)),
+                    #FFF;
+                }
+            }
+        }
+    }
+
+    // Стили для элементов которые перетаскиваются
+    .sortable-chosen {
+        background: linear-gradient(0deg, #1889DB, #1889DB),
+        #FFFFFF;
+        color: $white;
+
+        & .icon {
+            fill: $white;
+        }
+
+        & .category-tabs-list__content-sublist-item {
+            opacity: 0.55;
+            color: $white;
+        }
+    }
+}
+
+// Стили для попапов
+.popup-form-group {
+    padding-right: (40 / 16 + rem);
+    padding-left: (40 / 16 + rem);
+
+    &-line {
+        margin-top: (20 / 16 + rem);
+        padding-top: (20 / 16 + rem);
+        padding-right: (40 / 16 + rem);
+        padding-left: (40 / 16 + rem);
+        border-top: 1px solid $gray-400;
+    }
+}
+
+// Стили для мултиселекта с выбором количества
+.multiselect-bottom {
+    width: 63px;
+    height: 34px !important;
+
+    & .multiselect__tags {
+        padding-top: 8px;
+        padding-left: 6px;
+    }
+
+    & .multiselect__select {
+        top: -1px;
+        right: -7px;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 17px;
+            margin-top: 0;
+            right: 15px;
+            width: 10px;
+            height: 10px;
+            border: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='8' height='4' viewBox='0 0 8 4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L3.9766 3.1L6.9532 1' stroke='%234F4F4F' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+            background-repeat: no-repeat;
+        }
+    }
+
+    & .multiselect__content-wrapper {
+        border-bottom: 1px solid #e8e8e8;
+    }
+
+    & .multiselect__option {
+        display: flex;
+        align-items: center;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 33px;
+        border: none;
+    }
+
+    & .multiselect__option--highlight {
+        &:after {
+            right: -16px;
+            width: 10px;
+            height: 10px;
+            background-color: #E9F7FF;
+        }
+    }
+
+    & .multiselect__single {
+        font-size: (12 / 16 + rem);
+    }
+
+    .multiselect__option--selected:after {
+        content: '';
+        background-color: #E9F7FF;
+        position: absolute;
+        top: 50%;
+        z-index: 70;
+        right: -12px !important;
+        width: 10px !important;
+        height: 10px !important;
+        background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 240.608 240.608' style='enable-background:new 0 0 240.608 240.608;' xml:space='preserve'%3E%3Cpath style='fill:%2328a745;' d='M208.789,29.972l31.819,31.82L91.763,210.637L0,118.876l31.819-31.82l59.944,59.942L208.789,29.972z'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        transform: translateY(-50%);
+    }
+}
+
+
+//Размеры, радиусы и тд
+.border-radius-8px {
+    border-radius: 8px;
+}
+
+.page-enter-active,
+.page-leave-active {
+    transition: opacity .5s;
+}
+
+.page-enter,
+.page-leave-active {
+    opacity: 0;
+}
+
+
+ //Стили для модального окна
+.vue-dialog {
+    width: 416px !important;
+
+    &::v-deep .dialog-c-title {
+        text-align: center;
+    }
+}
+
+.dialog-content {
+    padding-top: 28px !important;
+    padding-right: 40px !important;
+    padding-left: 40px !important;
+    text-align: center;
+}
+
+.dialog-c-text {
+    text-align: left;
+}
+
+.vue-dialog-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 28px;
+    padding-right: 40px;
+    padding-left: 40px;
+    border: none !important;
+}
+
+.vue-dialog-button {
+    flex: inherit !important;
+    width: 156px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+// Модалка удаления
+.modal-delit {
+    &::v-deep .modal-base__close {
+        top: -14px;
+        right: 14px;
+    }
+
+    &__title {
+        margin: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: (15 / 16 + rem);
+        font-weight: 500;
+        text-align: center;
+    }
+
+    &__text {
+        margin-bottom: 1rem;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__btn {
+        width: 156px;
+        font-weight: 500;
+        border: none;
+
+        &:nth-child(1) {
+            margin-right: (24 / 16 + rem);
+        }
+    }
+}

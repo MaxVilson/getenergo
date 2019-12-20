@@ -1,0 +1,105 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Thin.eot');
+  src: url('/fonts/Roboto-Thin.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Roboto-Thin.svg#Roboto-Thin') format('svg'),
+    url('/fonts/Roboto-Thin.ttf') format('truetype'),
+    url('/fonts/Roboto-Thin.woff') format('woff'),
+    url('/fonts/Roboto-Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Light.eot');
+  src: url('/fonts/Roboto-Light.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Roboto-Light.svg#Roboto-Light') format('svg'),
+    url('/fonts/Roboto-Light.ttf') format('truetype'),
+    url('/fonts/Roboto-Light.woff') format('woff'),
+    url('/fonts/Roboto-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Regular.eot');
+  src: url('/fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Roboto-Regular.svg#Roboto-Regular') format('svg'),
+    url('/fonts/Roboto-Regular.ttf') format('truetype'),
+    url('/fonts/Roboto-Regular.woff') format('woff'),
+    url('/fonts/Roboto-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Medium.eot');
+  src: url('/fonts/Roboto-Medium.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Roboto-Medium.svg#Roboto-Medium') format('svg'),
+    url('/fonts/Roboto-Medium.ttf') format('truetype'),
+    url('/fonts/Roboto-Medium.woff') format('woff'),
+    url('/fonts/Roboto-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Bold.eot');
+  src: url('/fonts/Roboto-Bold.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Roboto-Bold.svg#Roboto-Bold') format('svg'),
+    url('/fonts/Roboto-Bold.ttf') format('truetype'),
+    url('/fonts/Roboto-Bold.woff') format('woff'),
+    url('/fonts/Roboto-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/*
+ * a small mixin for easy use of rem with px as fallback
+ * usage: @include x-rem(font-size, 14px)
+ * usage: @include x-rem(margin, 0 12px 2 1.2)
+ * usage: @include x-rem(padding, 1.5 24px)
+ *
+ * thanks to Eric Meyer for https://github.com/ericam/susy
+ * and Hans Christian Reinl for http://drublic.de/blog/rem-fallback-sass-less/
+ */
+@mixin rem($property, $values) {
+    // Create a couple of empty lists as output buffers.
+    $base-font-size: 16px; // should be consistent with your html/body font-size
+    $px-values: ();
+    $rem-values: ();
+
+    // Loop through the $values list
+    @each $value in $values {
+
+        // For each property value, if it's in rem or px, derive both rem and
+        // px values for it and add those to the end of the appropriate buffer.
+        // Ensure all pixel values are rounded to the nearest pixel.
+        @if $value==0 or $value==0px {
+            // 0 -- use it without a unit
+            $px-values: join($px-values, 0);
+            $rem-values: join($rem-values, 0);
+        }
+
+        @else if type-of($value)==number and not unitless($value) and (unit($value)==px) {
+            // px value given - calculate rem value from base-font-size
+            $new-rem-value: $value / $base-font-size;
+            $px-values: join($px-values, round($value));
+            $rem-values: join($rem-values, #{$new-rem-value}rem);
+        }
+
+        @else {
+            // unitless value - use those directly as rem and calculate the px-fallback
+            $px-values: join($px-values, round($value * $base-font-size));
+            $rem-values: join($rem-values, #{$value}rem);
+        }
+    }
+
+    // output the converted rules
+    #{$property}: $px-values;
+    #{$property}: $rem-values;
+}
