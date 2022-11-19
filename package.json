@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "svgxuse": "^1.2.6",
     "throttle-debounce": "^2.1.0",
     "vue-csv-import": "^2.3.9",
